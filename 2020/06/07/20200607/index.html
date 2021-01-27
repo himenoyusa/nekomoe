@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="yusa">
+  <meta name="keywords" content="">
+  <title>最近遇到的一些坑 - 星の音</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>星の音</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/background1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.4)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                最近遇到的一些坑
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-06-07 20:25">
+                    2020年6月7日 晚上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    720 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    9
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><img src="/img/post/2020-06-07.jpg" srcset="/img/loading.gif" alt=""></p>
+<h3 id="最近几天写-React、配置内网穿透遇到一些坑，记录一下。"><a href="#最近几天写-React、配置内网穿透遇到一些坑，记录一下。" class="headerlink" title="最近几天写 React、配置内网穿透遇到一些坑，记录一下。"></a>最近几天写 React、配置内网穿透遇到一些坑，记录一下。</h3><hr>
+<h2 id="nginx-proxy-pass-路径解析"><a href="#nginx-proxy-pass-路径解析" class="headerlink" title="nginx proxy_pass 路径解析"></a>nginx proxy_pass 路径解析</h2><blockquote>
+<p>在 <code>location</code> 块中，路径最后有无 <code>/</code> 号对解析结果影响很大，例如：</p>
+</blockquote>
+<pre><code class="hljs nginx"><span class="hljs-attribute">location</span> /api/ &#123;
+    <span class="hljs-attribute">proxy_pass</span> http://kanata.moe/;
+&#125;
+<span class="hljs-attribute">location</span> /api/ &#123;
+    <span class="hljs-attribute">proxy_pass</span> http://kanata.moe;
+&#125;</code></pre>
+
+<p>这两种方式的解析结果是不一样的</p>
+<ul>
+<li>第一种方式，访问 <code>/api</code> 时，解析结果为 <a href="http://kanata.moe/" target="_blank" rel="noopener">http://kanata.moe/</a></li>
+<li>第二种方式，访问 <code>/api</code> 时，解析结果为 <a href="http://kanata.moe/api" target="_blank" rel="noopener">http://kanata.moe/api</a></li>
+</ul>
+<hr>
+<h2 id="koa2-组件-koa-body-与-koa-bodyParser-的冲突"><a href="#koa2-组件-koa-body-与-koa-bodyParser-的冲突" class="headerlink" title="koa2 组件 koa-body 与 koa-bodyParser 的冲突"></a>koa2 组件 koa-body 与 koa-bodyParser 的冲突</h2><p><code>koa-body</code> 组件能够处理文件上传和参数传递，而 <code>koa-bodyParser</code> 只能处理参数</p>
+<blockquote>
+<p>两个组件不能同时使用，否则 koa 可能不报错，但一直无响应</p>
+</blockquote>
+<h3 id="艰难的调试过程"><a href="#艰难的调试过程" class="headerlink" title="艰难的调试过程"></a>艰难的调试过程</h3><ol>
+<li>前端 React 发出 ajax POST 上传文件请求，后端返回 504 响应超时</li>
+<li>前端 Postman 模拟 POST 带参数请求，后端返回 200 处理成功</li>
+<li>前端确认 React 中 ajax 请求代码无误</li>
+<li>检查 nginx 代理设置与跨域设置，添加跨域选项（前后端并未发生跨域请求，删除跨域选项）</li>
+<li>检查 koa2 路由设置正常，log 无报错，使用 console.log() 发现请求并未到达路由</li>
+<li>检查 koa2 接收的访问参数、访问地址正常</li>
+<li>用 console.log() 逐级排查 koa2 洋葱模型</li>
+<li>定位到 core/init.js 中对 koa-body 和 koa-bodyParser 的引用</li>
+<li>尝试删除对 koa-bodyParser 的引用，bug 修复成功</li>
+</ol>
+<hr>
+<h2 id="MySQL-触发器的编写"><a href="#MySQL-触发器的编写" class="headerlink" title="MySQL 触发器的编写"></a>MySQL 触发器的编写</h2><p>MySQL 触发器是个非常方便的功能，能够快速实现数据表之间的数据关联，例：</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">USE</span> setu;
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TRIGGER</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> count_score;
+<span class="hljs-comment"># 将结束符号替换为 $$</span>
+DELIMITER $$
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> count_score <span class="hljs-keyword">AFTER</span> <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">ON</span> scores <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span> <span class="hljs-keyword">ROW</span>
+<span class="hljs-keyword">BEGIN</span>
+    <span class="hljs-comment"># 不能直接对 DECLARE 的变量赋值</span>
+    <span class="hljs-keyword">DECLARE</span> newScore <span class="hljs-built_in">INT</span>;
+    <span class="hljs-comment"># 使用 INTO 将 SELECT 结果赋值给变量</span>
+    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">ROUND</span>(<span class="hljs-keyword">AVG</span>(score)) <span class="hljs-keyword">INTO</span> newScore <span class="hljs-keyword">FROM</span> scores <span class="hljs-keyword">WHERE</span> scores.picture_id = NEW.picture_id;
+    <span class="hljs-keyword">UPDATE</span> pictures <span class="hljs-keyword">SET</span> total_score = newScore <span class="hljs-keyword">WHERE</span> pictures.picture_id = NEW.picture_id;
+<span class="hljs-keyword">END</span>$$
+<span class="hljs-comment"># 将结束符号还原为 ;</span>
+DELIMITER ;</code></pre>
+
+<p>其中，<code>NEW</code> 指即将插入或已经插入的行，<code>OLD</code> 指即将删除或已经删除的行</p>
+<p>数学计算函数分别有：</p>
+<p><code>AVG() 求平均值</code><br><code>ROUND() 四舍五入取整</code><br><code>CEILING() 向上取整</code><br><code>FLOOR() 向下取整</code></p>
+<hr>
+<h2 id="Let’s-encrypt-泛域名证书的申请"><a href="#Let’s-encrypt-泛域名证书的申请" class="headerlink" title="Let’s encrypt 泛域名证书的申请"></a>Let’s encrypt 泛域名证书的申请</h2><p>其实用 certbot 非常简单，首先安装 certbot，然后执行一条命令：</p>
+<blockquote>
+<p><code>sudo certbot certonly --preferred-challenges dns --manual -d kanata.moe -d *.kanata.moe</code></p>
+</blockquote>
+<ul>
+<li><code>certonly</code> 仅生成证书</li>
+<li><code>--preferred-challenges dns</code> 选择验证方式为 dns</li>
+<li><code>--manual</code> 手动模式</li>
+<li><code>-d</code> 泛域名可以用 * 号，但主域名也必须同时作为参数</li>
+</ul>
+<p>验证过程中，会要求在 dns 解析记录里添加一条 txt 解析<br>然后在 nginx 配置中引入证书路径即可，如：</p>
+<pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;
+    <span class="hljs-comment"># ...</span>
+    <span class="hljs-attribute">ssl_certificate</span> /etc/letsencrypt/live/kanata.moe/fullchain.pem;
+    <span class="hljs-attribute">ssl_certificate_key</span> /etc/letsencrypt/live/kanata.moe/privkey.pem;
+    <span class="hljs-comment"># ...</span>
+&#125;</code></pre>
+
+<p><strong>注意：</strong> 修改与 SSL 相关的配置后，建议<strong>重启</strong> nginx 而不是使用 <code>nginx -s reload</code><br>可以使用 <code>sudo systemctl restart nginx</code> 等</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/">开发日志</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/21/20200621/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">又是怀疑人生的一天</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/22/20200322/">
+                        <span class="hidden-mobile">心情逐渐平静</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

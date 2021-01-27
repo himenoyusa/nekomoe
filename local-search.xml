@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Chrome 浏览器 console.log 打印变量的延迟</title>
+    <link href="/2021/01/27/20201211/"/>
+    <url>/2021/01/27/20201211/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/2020-12-11.png" srcset="/img/loading.gif" alt="截图"></p><h2 id="Chrome-浏览器-console-log-打印变量的延迟问题"><a href="#Chrome-浏览器-console-log-打印变量的延迟问题" class="headerlink" title="Chrome 浏览器 console.log 打印变量的延迟问题"></a>Chrome 浏览器 console.log 打印变量的延迟问题</h2><hr><p>今天在调试 React 的某个变量时，发现 console.log() 出现了个不可思议的情况，如上图。</p><p>在对某个对象进行连续的赋值操作时，第一次赋值打印的结果出现了很奇怪的 bug，展开后的值与缩略行的值不一致，经提醒，想起 Chrome 的 console.log 的确有这么一个特性，对于对象的打印，它的执行好像并不是同步的。</p><p>以后用 console.log 要多加小心了w</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发日志</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>在 koa2 上使用 swagger 自动生成接口文档</title>
+    <link href="/2021/01/27/20200819/"/>
+    <url>/2021/01/27/20200819/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/83760346_p0.png" srcset="/img/loading.gif" alt=""></p><h1 id="在-koa2-上使用-swagger-自动生成接口文档"><a href="#在-koa2-上使用-swagger-自动生成接口文档" class="headerlink" title="在 koa2 上使用 swagger 自动生成接口文档"></a>在 koa2 上使用 swagger 自动生成接口文档</h1><!-- TOC --><ul><li><a href="#在-koa2-上使用-swagger-自动生成接口文档">在 koa2 上使用 swagger 自动生成接口文档</a><ul><li><a href="#11-配置步骤">1.1. 配置步骤</a><ul><li><a href="#111-安装">1.1.1. 安装</a></li><li><a href="#112-配置-swagger-jsdoc">1.1.2. 配置 swagger-jsdoc</a></li><li><a href="#113-配置-koa2--swagger-ui">1.1.3. 配置 koa2–swagger-ui</a></li></ul></li><li><a href="#12-文档使用">1.2. 文档使用</a></li></ul></li></ul><!-- /TOC --><hr><p>swagger 官网介绍 <a href="https://swagger.io/" target="_blank" rel="noopener">https://swagger.io/</a></p><p>在 koa2 中要想方便快捷使用 swagger，需要安装两个插件</p><ul><li><p>swagger-jsdoc：<a href="https://github.com/Surnet/swagger-jsdoc" target="_blank" rel="noopener">https://github.com/Surnet/swagger-jsdoc</a></p></li><li><p>koa2-swagger-ui：<a href="https://www.npmjs.com/package/koa2-swagger-ui" target="_blank" rel="noopener">https://www.npmjs.com/package/koa2-swagger-ui</a></p></li></ul><p>其实这两个插件并没有依赖关系，前者 swagger-jsdoc 的作用是通过手动添加的路由注释生成 json 文档，而后者 koa2-swagger-ui 则基于生成的 json 文档提供强大的交互阅读界面</p><h2 id="1-1-配置步骤"><a href="#1-1-配置步骤" class="headerlink" title="1.1. 配置步骤"></a>1.1. 配置步骤</h2><h3 id="1-1-1-安装"><a href="#1-1-1-安装" class="headerlink" title="1.1.1. 安装"></a>1.1.1. 安装</h3><blockquote><p>npm i -D swagger-jsdoc koa2-swagger-ui</p></blockquote><h3 id="1-1-2-配置-swagger-jsdoc"><a href="#1-1-2-配置-swagger-jsdoc" class="headerlink" title="1.1.2. 配置 swagger-jsdoc"></a>1.1.2. 配置 swagger-jsdoc</h3><ol><li>首先在项目根目录下新建 <code>swagger.conf.js</code>，示例</li></ol><pre><code class="hljs js"><span class="hljs-keyword">const</span> swaggerJSDoc = <span class="hljs-built_in">require</span>(<span class="hljs-string">"swagger-jsdoc"</span>);<span class="hljs-keyword">const</span> swaggerDefinition = &#123;  info: &#123;    <span class="hljs-comment">// 自定义文档信息</span>    title: <span class="hljs-string">"gallery"</span>,    version: <span class="hljs-string">"1.0.0"</span>,    description: <span class="hljs-string">"gallery 网站后台 koa api"</span>,  &#125;,  host: <span class="hljs-string">`localhost:3000`</span>, <span class="hljs-comment">// 指定项目地址，建议在环境参数中配置，然后用 process.env 读取</span>  basePath: <span class="hljs-string">"/"</span>,&#125;;<span class="hljs-keyword">const</span> options = &#123;  swaggerDefinition,  apis: [<span class="hljs-string">"./app/routes/*.js"</span>], <span class="hljs-comment">// 指定项目路由的相对路径，相对于 basePath</span>&#125;;<span class="hljs-keyword">const</span> swaggerSpec = swaggerJSDoc(options);<span class="hljs-built_in">module</span>.exports = swaggerSpec;</code></pre><ol><li>在上述配置文件中导出 swaggerSpec 后，新建一个路由 <code>docs.js</code>，返回该配置文件（其实就是指向了 swagger-jsdoc 生成的 json 文档），<strong>此路由返回的文档正是 koa2–swagger-ui 所需的 json 文档</strong></li></ol><pre><code class="hljs js"><span class="hljs-keyword">const</span> Router = <span class="hljs-built_in">require</span>(<span class="hljs-string">"koa-router"</span>);<span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> Router();<span class="hljs-keyword">const</span> swaggerSpec = <span class="hljs-built_in">require</span>(<span class="hljs-string">"../../swagger.conf"</span>); <span class="hljs-comment">// 注意文件路径</span><span class="hljs-comment">// 注意 url 地址，可自定义，在 koa2--swagger-ui 配置中需要引用</span>router.get(<span class="hljs-string">"/swaggerDoc"</span>, <span class="hljs-keyword">async</span> (ctx) =&gt; &#123;  ctx.body = swaggerSpec;&#125;);<span class="hljs-built_in">module</span>.exports = router;</code></pre><h3 id="1-1-3-配置-koa2–swagger-ui"><a href="#1-1-3-配置-koa2–swagger-ui" class="headerlink" title="1.1.3. 配置 koa2–swagger-ui"></a>1.1.3. 配置 koa2–swagger-ui</h3><ol><li>在项目入口文件中配置 koa2–swagger-ui，示例</li></ol><pre><code class="hljs js"><span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">"koa"</span>);<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa();<span class="hljs-keyword">const</span> swagger = <span class="hljs-built_in">require</span>(<span class="hljs-string">"koa2-swagger-ui"</span>);<span class="hljs-keyword">const</span> routing = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./routes"</span>);<span class="hljs-comment">// 开启 swagger 静态服务</span>app.use(  swagger(&#123;    routePrefix: <span class="hljs-string">"/docs"</span>, <span class="hljs-comment">// 自定义 koa2-swagger-ui 生成的交互界面 url</span>    swaggerOptions: &#123;      <span class="hljs-comment">// 重要选项！url地址一定要指向为 swagger-jsdoc 配置的路由地址</span>      url: <span class="hljs-string">"http://localhost:3000/swaggerDoc"</span>,    &#125;,  &#125;));<span class="hljs-comment">// 路由绑定请自行实现</span>routing(app);app.listen(<span class="hljs-number">3000</span>, () =&gt; &#123;  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"App running at 3000 port"</span>);&#125;);</code></pre><h2 id="1-2-文档使用"><a href="#1-2-文档使用" class="headerlink" title="1.2. 文档使用"></a>1.2. 文档使用</h2><p>至此，swagger 的配置就已经全部完成，访问 <code>http://localhost:3000/docs</code> 即可查看 swagger-ui 提供的强大操作界面，接下来只要为各个路由加上注释即可，路由注释规范可参考官网示例 <a href="https://github.com/Surnet/swagger-jsdoc/blob/master/example/v2/routes.js" target="_blank" rel="noopener">https://github.com/Surnet/swagger-jsdoc/blob/master/example/v2/routes.js</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发日志</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>记一次星轨拍摄</title>
+    <link href="/2020/08/16/20200816/"/>
+    <url>/2020/08/16/20200816/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/star.png" srcset="/img/loading.gif" alt=""></p><p>本来打算12号回老家拍英仙座流星雨，结果天公不作美，天气太差了，13号才回去，然而13号天气也不算太好</p><p>经过两三个小时和蚊子斗智斗勇，拍了300来张照片之后，发现几乎就没拍到流星，只有两三颗而且特别暗，太失望了。。最后只能拿一组照片做星轨了</p><p>不过因为老家后面火车还挺多的，多少也给照片添了一些亮点，真·亮点ww</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>又是怀疑人生的一天</title>
+    <link href="/2020/06/21/20200621/"/>
+    <url>/2020/06/21/20200621/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/82374429_p0.jpg" srcset="/img/loading.gif" alt=""></p><p>——<em>人活着本来就没什么意义，又何必自己折磨自己</em></p><p>终于推完了 ATRI，故事很棒，结局也挺好，可是加上最近的烦心事，让我感觉更加怀疑人生了。</p><p>并不是我对未来有什么偏见，但是我真的觉得未来不值得我期待了，是因为还没摆脱心中那份孤独感吗。。我不明白。</p><p>明天老姐过生日了，也就是说，我的生日也快到了，不知道能不能在生日那天之前解脱，回家好好过生日呢。。希望如此吧。</p><p>为什么我会对他们抱着如此憎恨的心情呢，其实大家并不是多么坏的人，可能多少有点自私吧，但是谁又不是一样呢，我在别人眼中也不见得是多么正直的一个人吧。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>最近遇到的一些坑</title>
+    <link href="/2020/06/07/20200607/"/>
+    <url>/2020/06/07/20200607/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/2020-06-07.jpg" srcset="/img/loading.gif" alt=""></p><h3 id="最近几天写-React、配置内网穿透遇到一些坑，记录一下。"><a href="#最近几天写-React、配置内网穿透遇到一些坑，记录一下。" class="headerlink" title="最近几天写 React、配置内网穿透遇到一些坑，记录一下。"></a>最近几天写 React、配置内网穿透遇到一些坑，记录一下。</h3><hr><h2 id="nginx-proxy-pass-路径解析"><a href="#nginx-proxy-pass-路径解析" class="headerlink" title="nginx proxy_pass 路径解析"></a>nginx proxy_pass 路径解析</h2><blockquote><p>在 <code>location</code> 块中，路径最后有无 <code>/</code> 号对解析结果影响很大，例如：</p></blockquote><pre><code class="hljs nginx"><span class="hljs-attribute">location</span> /api/ &#123;    <span class="hljs-attribute">proxy_pass</span> http://kanata.moe/;&#125;<span class="hljs-attribute">location</span> /api/ &#123;    <span class="hljs-attribute">proxy_pass</span> http://kanata.moe;&#125;</code></pre><p>这两种方式的解析结果是不一样的</p><ul><li>第一种方式，访问 <code>/api</code> 时，解析结果为 <a href="http://kanata.moe/" target="_blank" rel="noopener">http://kanata.moe/</a></li><li>第二种方式，访问 <code>/api</code> 时，解析结果为 <a href="http://kanata.moe/api" target="_blank" rel="noopener">http://kanata.moe/api</a></li></ul><hr><h2 id="koa2-组件-koa-body-与-koa-bodyParser-的冲突"><a href="#koa2-组件-koa-body-与-koa-bodyParser-的冲突" class="headerlink" title="koa2 组件 koa-body 与 koa-bodyParser 的冲突"></a>koa2 组件 koa-body 与 koa-bodyParser 的冲突</h2><p><code>koa-body</code> 组件能够处理文件上传和参数传递，而 <code>koa-bodyParser</code> 只能处理参数</p><blockquote><p>两个组件不能同时使用，否则 koa 可能不报错，但一直无响应</p></blockquote><h3 id="艰难的调试过程"><a href="#艰难的调试过程" class="headerlink" title="艰难的调试过程"></a>艰难的调试过程</h3><ol><li>前端 React 发出 ajax POST 上传文件请求，后端返回 504 响应超时</li><li>前端 Postman 模拟 POST 带参数请求，后端返回 200 处理成功</li><li>前端确认 React 中 ajax 请求代码无误</li><li>检查 nginx 代理设置与跨域设置，添加跨域选项（前后端并未发生跨域请求，删除跨域选项）</li><li>检查 koa2 路由设置正常，log 无报错，使用 console.log() 发现请求并未到达路由</li><li>检查 koa2 接收的访问参数、访问地址正常</li><li>用 console.log() 逐级排查 koa2 洋葱模型</li><li>定位到 core/init.js 中对 koa-body 和 koa-bodyParser 的引用</li><li>尝试删除对 koa-bodyParser 的引用，bug 修复成功</li></ol><hr><h2 id="MySQL-触发器的编写"><a href="#MySQL-触发器的编写" class="headerlink" title="MySQL 触发器的编写"></a>MySQL 触发器的编写</h2><p>MySQL 触发器是个非常方便的功能，能够快速实现数据表之间的数据关联，例：</p><pre><code class="hljs sql"><span class="hljs-keyword">USE</span> setu;<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TRIGGER</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> count_score;<span class="hljs-comment"># 将结束符号替换为 $$</span>DELIMITER $$<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> count_score <span class="hljs-keyword">AFTER</span> <span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">ON</span> scores <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span> <span class="hljs-keyword">ROW</span><span class="hljs-keyword">BEGIN</span>    <span class="hljs-comment"># 不能直接对 DECLARE 的变量赋值</span>    <span class="hljs-keyword">DECLARE</span> newScore <span class="hljs-built_in">INT</span>;    <span class="hljs-comment"># 使用 INTO 将 SELECT 结果赋值给变量</span>    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">ROUND</span>(<span class="hljs-keyword">AVG</span>(score)) <span class="hljs-keyword">INTO</span> newScore <span class="hljs-keyword">FROM</span> scores <span class="hljs-keyword">WHERE</span> scores.picture_id = NEW.picture_id;    <span class="hljs-keyword">UPDATE</span> pictures <span class="hljs-keyword">SET</span> total_score = newScore <span class="hljs-keyword">WHERE</span> pictures.picture_id = NEW.picture_id;<span class="hljs-keyword">END</span>$$<span class="hljs-comment"># 将结束符号还原为 ;</span>DELIMITER ;</code></pre><p>其中，<code>NEW</code> 指即将插入或已经插入的行，<code>OLD</code> 指即将删除或已经删除的行</p><p>数学计算函数分别有：</p><p><code>AVG() 求平均值</code><br><code>ROUND() 四舍五入取整</code><br><code>CEILING() 向上取整</code><br><code>FLOOR() 向下取整</code></p><hr><h2 id="Let’s-encrypt-泛域名证书的申请"><a href="#Let’s-encrypt-泛域名证书的申请" class="headerlink" title="Let’s encrypt 泛域名证书的申请"></a>Let’s encrypt 泛域名证书的申请</h2><p>其实用 certbot 非常简单，首先安装 certbot，然后执行一条命令：</p><blockquote><p><code>sudo certbot certonly --preferred-challenges dns --manual -d kanata.moe -d *.kanata.moe</code></p></blockquote><ul><li><code>certonly</code> 仅生成证书</li><li><code>--preferred-challenges dns</code> 选择验证方式为 dns</li><li><code>--manual</code> 手动模式</li><li><code>-d</code> 泛域名可以用 * 号，但主域名也必须同时作为参数</li></ul><p>验证过程中，会要求在 dns 解析记录里添加一条 txt 解析<br>然后在 nginx 配置中引入证书路径即可，如：</p><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;    <span class="hljs-comment"># ...</span>    <span class="hljs-attribute">ssl_certificate</span> /etc/letsencrypt/live/kanata.moe/fullchain.pem;    <span class="hljs-attribute">ssl_certificate_key</span> /etc/letsencrypt/live/kanata.moe/privkey.pem;    <span class="hljs-comment"># ...</span>&#125;</code></pre><p><strong>注意：</strong> 修改与 SSL 相关的配置后，建议<strong>重启</strong> nginx 而不是使用 <code>nginx -s reload</code><br>可以使用 <code>sudo systemctl restart nginx</code> 等</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发日志</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>心情逐渐平静</title>
+    <link href="/2020/03/22/20200322/"/>
+    <url>/2020/03/22/20200322/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/ETo-J4UU8AIpPj5.jpg" srcset="/img/loading.gif" alt=""></p><p>NAGA 作品，和白羽好像 w</p><p>也算是纠结了一段时间了，最近心情逐渐平静下来了，冷静考虑之后发现，生活其实也就这样，所谓人生也不过如此吧。所以现在也不会经常钻牛角尖了，平平淡淡也挺好的，追求太多只会被现实压垮而已。认真学学写代码，偶尔玩玩游戏，没事做做番，这样也挺好，还有什么好追求的呢。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>为什么会这么迷茫</title>
+    <link href="/2020/03/10/20200310/"/>
+    <url>/2020/03/10/20200310/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/ESWIAJfUYAI8ce-.png" srcset="/img/loading.gif" alt=""></p><p>五年挣扎终于看到了尽头，为什么反而更加迷茫了，简直就像失去了一切目标，弄丢了对这世界的好奇心。啊啊，原来我根本就不知道我自己究竟想要什么，只是一味地讨厌现在这种生活而已啊。</p><p>我所做的选择是一种自私吗，应该是吧，毕竟大家都说我这样做太蠢了，丝毫不顾及家人的感受，丝毫不考虑结婚生子以后的生活。可是我真的不打算结婚啊。</p><p>唯一让我担心的，就是这挥之不去的孤独感吧，可这又何妨，至少我还活着。我觉得我可能已经变得扭曲不堪了，而我却总是纵容着自己，回过头才发现，原来我依旧身处海南那片深深的绝望之中。</p><p>可是我也不想就这么结束啊，说不定明天会变得比今天好一点点呢，哪怕只是一点点。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>烦恼总是接连不断</title>
+    <link href="/2020/02/26/20200226/"/>
+    <url>/2020/02/26/20200226/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/ERmYjQIUEAIc5lW.png" srcset="/img/loading.gif" alt=""></p><p>今年二月还有 29 号</p><p>该为找工作发愁了。。之前觉得 PHP 的水平找工作应该不难，现在看来简直太天真了，根本就啥也不懂 ww</p><p>但是要不要转学前端呢，前端要补的东西还有很多，虽然 PHP 也要补但是基础比前端还是好一点。长远来看的话，PHP 竞争力肯定不如前端，但是 PHP 可以转后端架构，甚至转大数据。当然首先问题是能不能找到工作吧 ww</p><p>还是得先把网站项目做完，多学点东西再说吧</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>终于，只剩最后一点时间了</title>
+    <link href="/2020/01/18/20200118/"/>
+    <url>/2020/01/18/20200118/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_1194.jpg" srcset="/img/loading.gif" alt=""></p><p>私、何を…</p><p>当然，是从乐观的角度来说，再熬过半年就结束了，终于终于要结束了</p><p>长达 5 年的煎熬，虽然也不乏开心的事情，但也永远忘不了被逼入绝境的心情，现在终于看见曙光了，终于快走到终点了。</p><p>以后的事情谁也无法预料，生活这么艰难，谁又过得容易呢，而我也不过是想过得稍微开心一点点而已。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>每次想写点东西的时候，都是心情不好的时候</title>
+    <link href="/2019/12/15/20191215/"/>
+    <url>/2019/12/15/20191215/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_1149.jpg" srcset="/img/loading.gif" alt=""></p><p>或者说每次心情不好的时候都想写点东西？</p><p>还是算了 w</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>住了一次医院，第一次觉得我开始活得像个普通人了</title>
+    <link href="/2019/11/22/20191122/"/>
+    <url>/2019/11/22/20191122/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/80965165_p0.jpg" srcset="/img/loading.gif" alt=""></p><p>虽然办了住院手续，不过也就是打针做检查的时候来医院，该上班还是要上班。第一次体会到了被重重现实压迫的无奈感。。明明往返医院已经很心累了，还要在单位疯狂受气。</p><p>这些肯定都是作为普通人需要面对的现实吧，以后工作了说不定还会有更离谱的事情，说不定离家远住院也没人照顾，动手术也只能自己一个人。但是这样也好，这样也是活着啊。</p><p>虽然一堆活没干完，但是休假批了，那就工作去他妈的，安排好住院啊考试啊之类的事情，然后好好休息吧~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>销毁了高中毕业以来的日记</title>
+    <link href="/2019/11/11/20191111/"/>
+    <url>/2019/11/11/20191111/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0925.jpg" srcset="/img/loading.gif" alt=""></p><p>8 年多了，日记虽然只写了 3 本，而且几乎都是些负面情绪，不过我还是决定全部扔进了碎纸机，一是保存不方便了，二是，该改改自己念旧的毛病了。</p><p>时间好漫长啊，真想现在就立马办完复员手续，一走了之。但是时间又过得好快啊，想想高中已经毕业 8 年多了，然而我还是任性不懂事。我也搞不懂我自己了 w</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>国庆节也过完啦</title>
+    <link href="/2019/10/06/20191006/"/>
+    <url>/2019/10/06/20191006/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/B15A9E56A90DD965BCD5BCBC9C6DF509.png" srcset="/img/loading.gif" alt=""></p><p>虽然国庆节也才三四天假，但是也算是扎扎实实玩了几天，玩过之后就忧郁了。。没有目标的感觉真难受，又迷茫又孤独。。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>最后的一年</title>
+    <link href="/2019/08/24/20190824/"/>
+    <url>/2019/08/24/20190824/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0521.jpg" srcset="/img/loading.gif" alt=""></p><p>恍恍惚惚，已经快到 9 月份了，4 年多了终于等来了应有的结果，明年终于可以摆脱组织的束缚，成为一个真正意义上的社会人了。</p><p>算上剩下的这一年，毕业正好 5 年，却也应验了当初说 5 年就可以回来的话，真是讽刺。5 年时间经历了太多，想到明年就要自己出去找工作了，反而有点不适应，也有点不安。</p><p>不过现在还没到放松的时候，最难的首先还是要熬过这一年吧，然后还要面临人生第一次找工作，不知道会碰壁多少次 ww。可是每次面临现在这些乱七八糟的工作内容，还是会觉得很烦人，又不得不好好完成，无奈也没办法，总之也就最后这一年了，再怎么折腾也就一年了，随它去吧。</p><p>好好睡一觉吧，明天也会是忙碌的一天，加班还有一年呢，趁着这一年，把想考的 JLPT、想学的画画、想做的 PHP，一个不落全都完成吧，毕竟，活着本来就没什么意义，还是不能太悲观对吧~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>哇啊啊啊啊</title>
+    <link href="/2019/08/07/20190807/"/>
+    <url>/2019/08/07/20190807/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0641.jpg" srcset="/img/loading.gif" alt=""></p><p>想说点开心的事情，但是想来想去好像也没什么开心的事情。。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>追番list</title>
+    <link href="/2019/07/15/20190715/"/>
+    <url>/2019/07/15/20190715/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0597.jpg" srcset="/img/loading.gif" alt=""></p><p>平凡职业，cop craft，astra，女高日常，街角魔族，重来魔王，ct，jojo，fsn 第二部剧场(待续</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>原来家庭才是最大的困扰</title>
+    <link href="/2019/06/15/20190615/"/>
+    <url>/2019/06/15/20190615/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0492.jpg" srcset="/img/loading.gif" alt=""></p><p>老妈住院了，说要准备做结石手术，幸好老妹有空先回家了，还能照顾一下，我只能周一请假回去了。</p><p>突然觉得生活其实真的没有那么美好，现实总有压过梦想的时候，又不能随便抛弃这些牵绊，久而久之就会成为影响人生最大的困扰。而我呢？有时候太固执了，一心只想往前冲，可能甩掉了太多重要的东西了吧。不过这条路我还是会继续走下去，谁又知道明天世界会变成什么样子呢。</p><p>即便如此我也不想就此丢掉追逐美好的权利，加把劲~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>[预告]索尼A7+三阳35/2.8和A6000套机实用对比</title>
+    <link href="/2019/06/10/20190610/"/>
+    <url>/2019/06/10/20190610/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/EX_HPOnUYAYxlLE.jpg" srcset="/img/loading.gif" alt=""></p><p>终于，两台索法的入门级微单都回来了，其实很早就想写篇个人的使用感想了，等这段时间有空了就详细写一写吧。</p><p>其实个人喜欢 A7 多一点，尽管这两台入门辣鸡都属于优缺分明的机型，但是日常使用还是完全没问题的，敬请期待~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>那么现在我该保持怎样的心态呢</title>
+    <link href="/2019/06/04/20190604/"/>
+    <url>/2019/06/04/20190604/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0455.jpg" srcset="/img/loading.gif" alt=""></p><p>夏天到啦~</p><p>天气越来越热，心情也跟着烦闷起来了，除了画画课和字幕组的活，代码已经很久没碰了，相机也基本处于吃灰状态，时间不够用（那还打什么游戏）。好想吃冰西瓜~</p><p>虽然按照予定计划，九月份左右就可以筹划罢工跑路了，不过唯一的不确定因素——跑路的代价，还没办法确定。那么在那之前，我该保持怎样的心态呢。或者说是否还有其他的解决方法？</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>记第一次服务器被暴力破解攻击</title>
+    <link href="/2019/04/29/20190429/"/>
+    <url>/2019/04/29/20190429/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0324.png" srcset="/img/loading.gif" alt=""></p><p>很久没维护过服务器了（大概一个月），今天 ssh 连上去看了一下，无意间发现 auth.log 的 fail 记录有点奇怪，重复查看之后发现服务器的 ssh 正在被暴力破解。。。来自好几个不同的 ip ，不过幸好只是单个 ip 的简单攻击，毫不犹豫直接加上了 fail2ban ，端口就懒得改了，ban 了 3 个 ip 之后清净了。。。有点吓人 ww，，以后还是得多注意服务器的安全问题了。。。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发日志</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>听说又有滚蛋的机会来了</title>
+    <link href="/2019/04/22/20190422/"/>
+    <url>/2019/04/22/20190422/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0370.png" srcset="/img/loading.gif" alt=""></p><p>本来年底抓住机会回来，就是为了等这个最终机会，现在似乎是脱离这个深坑最后的希望了。。明明都到了这时候，反而有点犹豫了。。虽然风险依然有，但是这是最后的机会了啊</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>每天都是上班下班....</title>
+    <link href="/2019/04/03/20190403/"/>
+    <url>/2019/04/03/20190403/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0309.jpg" srcset="/img/loading.gif" alt=""></p><p>已经有点感觉不到时间的流动了,,,上班下班一天过去了,,,上班下班一个星期过去了…..也没干啥活但是就是忙,,没办法,,暂时只能这样了吧,,唉</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>四畳半神話大系</title>
+    <link href="/2019/03/02/20190302/"/>
+    <url>/2019/03/02/20190302/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0221.png" srcset="/img/loading.gif" alt=""></p><p>首先，这部作品有点电波。。魔性的画风和前期重复的剧情和超高速的 CV 旁白有点劝退，,但是，最后的两集一下把所有的剧情全都连接起来，把所有想表达的感情全都连接起来，，瞬间把前期所有的疑惑都解开了，男主被困的时候，，仿佛被困的就是我自己，，就在那一秒之间，，我突然哭了，眼泪大颗大颗根本止不住。。（要不是我妈快下班回家，我能哭一整晚）</p><p>无尽的四畳半房间，无数的平行世界，就像我曾经身处的深渊，和无论怎么努力都逃不脱的命运。我也曾像男主一样，在那四畳半的房间，疯狂渴望着实现一般人根本不放在眼里的小小愿望， 疯狂渴望着，只要能逃出这命运的深渊我什么都愿意干。。。。</p><p>当男主从房间里逃出来的时候，我也回想起，两个月前，那种获得解放的愉悦感，绝非只言片语所能描绘，一花一草都会让我觉得，我还活着真是太好了。。。虽然那之后的我，也经常会迷茫不知所措，但是，，我所得到的，应该就是比一般人更能理解男主的心情吧~~</p><p>语无伦次了，，总之，，这是一部不容错过的好作品，感谢~~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>VS code 插件</title>
+    <link href="/2019/02/25/20190225/"/>
+    <url>/2019/02/25/20190225/</url>
+    
+    <content type="html"><![CDATA[<p>auto close tag 自动关闭 html 标签</p><p>auto rename tag 自动更改 html 对应的标签</p><p>debugger for chrome 前端利用 chrome 断点调试</p><p>open in browser 右键浏览器打开文件</p><p>PHP debug 断点调试 PHP</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发日志</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>报了个画画的网络班</title>
+    <link href="/2019/02/22/20190222/"/>
+    <url>/2019/02/22/20190222/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/img/post/IMG_0238.jpg" srcset="/img/loading.gif" alt=""></p><p>ごと P 的画风非常治愈~~</p><p>也不知道该说是蓄谋已久,,还是一时头脑发热,,反正就是花了一笔不小的钱报了个班….虽然自己自学画了好几年了,,总是看不到进步也的确有点糟心…..(其实就是自己懒</p><p>不管怎么样,,画画肯定会成为之后生活的一部分了,,就算是有时候可能会很忙,,至少也有个缓解压力的方法吧</p><p>说个鸡掰哟,,妈蛋现在想做的事情太多了根本忙不过来了啊!!!!!….VPS 基本上已经成了个 SS 服务器了根本没时间更新网站…..但是不管怎么说,,不让自己闲下来终归是对的,,既然还有想去做的事情,,那就不遗余力的去完成,,,,以此来弥补那被狗吃掉的青春吧 2333</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>新年的一点牢骚</title>
+    <link href="/2019/02/06/20190206/"/>
+    <url>/2019/02/06/20190206/</url>
+    
+    <content type="html"><![CDATA[<p>终于闲下心来可以写点东西了，经历了坎坷的本命年之后，现在的心情也是十分复杂。。</p><p>去年上半年可以说是我人生中最黑暗的一段时间了，压抑，暴躁，毫无理性，钻进死胡同出不来，精神接近崩溃，眼看着另一个朋友因为精神崩溃住进了特殊医院，庆幸我在掉下悬崖之前找回了自己，7 月份之后，我过得也还算一般。</p><p>然而就在我以为毫无希望可言的时候，12 月份我却从海南回来了，一点实感都没有，恍惚之间就这么过了一个多月。。在那之前，我日夜幻想着，当这一天到来的时候我会多么高兴多么开心。没想到世界线会以这样的方式收束，措手不及，来不及多想。。</p><p>我以为这就结束了，我一辈子的生活应该就这么被定格了，我也几乎快认命了。“待遇这么好，工作又稳定，我们都羡慕死你了”。这是我所有朋友的一致反应，包括我的家人，无一例外，仿佛这就是所有人一辈子最终的追求。</p><p>但是最近我开始反省，到底什么才是正确的，我所追求的到底是什么。。大学毕业已经有三年多了，我从泥沼之中痛苦挣扎，终于找到了自己的目标，现在的我却慢慢的失去了我曾经坚定不移的东西，曾经为之拼命的东西。。</p><p>这个岔路口可能对我而言没有选择的权利，但是这个岔路口直接决定我的命运，我很迷茫，但是如果真的能让我选择，我觉得我还是应该去拼一次，为了自己真正的梦想，为了自己定义的幸福，也为了不留下这个遗憾。</p><p>2019 年，希望我的幸运还没用完，希望我的血汗不会被白费，加油～</p><p><img src="/img/post/IMG_0139.jpg" srcset="/img/loading.gif" alt=""></p><p>你妈的为什么图倒了(</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>新年快乐！~~</title>
+    <link href="/2019/02/04/20190204/"/>
+    <url>/2019/02/04/20190204/</url>
+    
+    <content type="html"><![CDATA[<p>有时间再写点东西，，新年先快乐一下吧ww</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>头痛</title>
+    <link href="/2019/01/25/20190125/"/>
+    <url>/2019/01/25/20190125/</url>
+    
+    <content type="html"><![CDATA[<p>简直比三年前那时候还要更迷茫，想着一些不着边际的东西。。</p><p><img src="/img/post/IMG_0005.jpg" srcset="/img/loading.gif" alt=""></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>碎碎念</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>关于这坑爹的 linux 版网易云。。</title>
+    <link href="/2019/01/23/20190123/"/>
+    <url>/2019/01/23/20190123/</url>
+    
+    <content type="html"><![CDATA[<p>安装完之后打不开，，结果搜到的玄学方法是双击加载的时候，，右上打开关机选项，然后再关闭，，，，然后网易云界面就出来了。。奇葩了。。。</p><p><img src="/img/post/81062782_p0.jpg" srcset="/img/loading.gif" alt=""></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发日志</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>

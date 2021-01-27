@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="yusa">
+  <meta name="keywords" content="">
+  <title>在 koa2 上使用 swagger 自动生成接口文档 - 星の音</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>星の音</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/background1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.4)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+                在 koa2 上使用 swagger 自动生成接口文档
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2021-01-27 21:28">
+                    2021年1月27日 晚上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    623 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    8
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><img src="/img/post/83760346_p0.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="在-koa2-上使用-swagger-自动生成接口文档"><a href="#在-koa2-上使用-swagger-自动生成接口文档" class="headerlink" title="在 koa2 上使用 swagger 自动生成接口文档"></a>在 koa2 上使用 swagger 自动生成接口文档</h1><!-- TOC -->
+
+<ul>
+<li><a href="#在-koa2-上使用-swagger-自动生成接口文档">在 koa2 上使用 swagger 自动生成接口文档</a><ul>
+<li><a href="#11-配置步骤">1.1. 配置步骤</a><ul>
+<li><a href="#111-安装">1.1.1. 安装</a></li>
+<li><a href="#112-配置-swagger-jsdoc">1.1.2. 配置 swagger-jsdoc</a></li>
+<li><a href="#113-配置-koa2--swagger-ui">1.1.3. 配置 koa2–swagger-ui</a></li>
+</ul>
+</li>
+<li><a href="#12-文档使用">1.2. 文档使用</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+
+<hr>
+<p>swagger 官网介绍 <a href="https://swagger.io/" target="_blank" rel="noopener">https://swagger.io/</a></p>
+<p>在 koa2 中要想方便快捷使用 swagger，需要安装两个插件</p>
+<ul>
+<li><p>swagger-jsdoc：<a href="https://github.com/Surnet/swagger-jsdoc" target="_blank" rel="noopener">https://github.com/Surnet/swagger-jsdoc</a></p>
+</li>
+<li><p>koa2-swagger-ui：<a href="https://www.npmjs.com/package/koa2-swagger-ui" target="_blank" rel="noopener">https://www.npmjs.com/package/koa2-swagger-ui</a></p>
+</li>
+</ul>
+<p>其实这两个插件并没有依赖关系，前者 swagger-jsdoc 的作用是通过手动添加的路由注释生成 json 文档，而后者 koa2-swagger-ui 则基于生成的 json 文档提供强大的交互阅读界面</p>
+<h2 id="1-1-配置步骤"><a href="#1-1-配置步骤" class="headerlink" title="1.1. 配置步骤"></a>1.1. 配置步骤</h2><h3 id="1-1-1-安装"><a href="#1-1-1-安装" class="headerlink" title="1.1.1. 安装"></a>1.1.1. 安装</h3><blockquote>
+<p>npm i -D swagger-jsdoc koa2-swagger-ui</p>
+</blockquote>
+<h3 id="1-1-2-配置-swagger-jsdoc"><a href="#1-1-2-配置-swagger-jsdoc" class="headerlink" title="1.1.2. 配置 swagger-jsdoc"></a>1.1.2. 配置 swagger-jsdoc</h3><ol>
+<li>首先在项目根目录下新建 <code>swagger.conf.js</code>，示例</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> swaggerJSDoc = <span class="hljs-built_in">require</span>(<span class="hljs-string">"swagger-jsdoc"</span>);
+
+<span class="hljs-keyword">const</span> swaggerDefinition = &#123;
+  info: &#123;
+    <span class="hljs-comment">// 自定义文档信息</span>
+    title: <span class="hljs-string">"gallery"</span>,
+    version: <span class="hljs-string">"1.0.0"</span>,
+    description: <span class="hljs-string">"gallery 网站后台 koa api"</span>,
+  &#125;,
+  host: <span class="hljs-string">`localhost:3000`</span>, <span class="hljs-comment">// 指定项目地址，建议在环境参数中配置，然后用 process.env 读取</span>
+  basePath: <span class="hljs-string">"/"</span>,
+&#125;;
+
+<span class="hljs-keyword">const</span> options = &#123;
+  swaggerDefinition,
+  apis: [<span class="hljs-string">"./app/routes/*.js"</span>], <span class="hljs-comment">// 指定项目路由的相对路径，相对于 basePath</span>
+&#125;;
+
+<span class="hljs-keyword">const</span> swaggerSpec = swaggerJSDoc(options);
+
+<span class="hljs-built_in">module</span>.exports = swaggerSpec;</code></pre>
+
+<ol>
+<li>在上述配置文件中导出 swaggerSpec 后，新建一个路由 <code>docs.js</code>，返回该配置文件（其实就是指向了 swagger-jsdoc 生成的 json 文档），<strong>此路由返回的文档正是 koa2–swagger-ui 所需的 json 文档</strong></li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> Router = <span class="hljs-built_in">require</span>(<span class="hljs-string">"koa-router"</span>);
+<span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> Router();
+<span class="hljs-keyword">const</span> swaggerSpec = <span class="hljs-built_in">require</span>(<span class="hljs-string">"../../swagger.conf"</span>); <span class="hljs-comment">// 注意文件路径</span>
+
+<span class="hljs-comment">// 注意 url 地址，可自定义，在 koa2--swagger-ui 配置中需要引用</span>
+router.get(<span class="hljs-string">"/swaggerDoc"</span>, <span class="hljs-keyword">async</span> (ctx) =&gt; &#123;
+  ctx.body = swaggerSpec;
+&#125;);
+
+<span class="hljs-built_in">module</span>.exports = router;</code></pre>
+
+<h3 id="1-1-3-配置-koa2–swagger-ui"><a href="#1-1-3-配置-koa2–swagger-ui" class="headerlink" title="1.1.3. 配置 koa2–swagger-ui"></a>1.1.3. 配置 koa2–swagger-ui</h3><ol>
+<li>在项目入口文件中配置 koa2–swagger-ui，示例</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">"koa"</span>);
+<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa();
+<span class="hljs-keyword">const</span> swagger = <span class="hljs-built_in">require</span>(<span class="hljs-string">"koa2-swagger-ui"</span>);
+<span class="hljs-keyword">const</span> routing = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./routes"</span>);
+
+<span class="hljs-comment">// 开启 swagger 静态服务</span>
+app.use(
+  swagger(&#123;
+    routePrefix: <span class="hljs-string">"/docs"</span>, <span class="hljs-comment">// 自定义 koa2-swagger-ui 生成的交互界面 url</span>
+    swaggerOptions: &#123;
+      <span class="hljs-comment">// 重要选项！url地址一定要指向为 swagger-jsdoc 配置的路由地址</span>
+      url: <span class="hljs-string">"http://localhost:3000/swaggerDoc"</span>,
+    &#125;,
+  &#125;)
+);
+
+<span class="hljs-comment">// 路由绑定请自行实现</span>
+routing(app);
+
+app.listen(<span class="hljs-number">3000</span>, () =&gt; &#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"App running at 3000 port"</span>);
+&#125;);</code></pre>
+
+<h2 id="1-2-文档使用"><a href="#1-2-文档使用" class="headerlink" title="1.2. 文档使用"></a>1.2. 文档使用</h2><p>至此，swagger 的配置就已经全部完成，访问 <code>http://localhost:3000/docs</code> 即可查看 swagger-ui 提供的强大操作界面，接下来只要为各个路由加上注释即可，路由注释规范可参考官网示例 <a href="https://github.com/Surnet/swagger-jsdoc/blob/master/example/v2/routes.js" target="_blank" rel="noopener">https://github.com/Surnet/swagger-jsdoc/blob/master/example/v2/routes.js</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/">开发日志</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/27/20201211/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Chrome 浏览器 console.log 打印变量的延迟</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/16/20200816/">
+                        <span class="hidden-mobile">记一次星轨拍摄</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
