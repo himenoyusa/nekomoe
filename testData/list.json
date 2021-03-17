@@ -21,7 +21,8 @@
       "webRip": [],
       "bdRip": [],
       "poster": [],
-      "tcTranslator": ["雲棋"]
+      "tcTranslator": ["雲棋"],
+      "consultant": []
     }
   },
   {
@@ -46,7 +47,8 @@
       "webRip": [],
       "bdRip": ["MIR", "Gcn"],
       "poster": ["一一丨一"],
-      "tcTranslator": ["風風"]
+      "tcTranslator": ["風風"],
+      "consultant": []
     }
   },
   {
@@ -71,7 +73,8 @@
       "webRip": [],
       "bdRip": [],
       "poster": [],
-      "tcTranslator": []
+      "tcTranslator": [],
+      "consultant": []
     }
   },
   {
@@ -96,7 +99,8 @@
       "webRip": [],
       "bdRip": ["MIR", "Gcn"],
       "poster": ["绪实"],
-      "tcTranslator": ["悠月子"]
+      "tcTranslator": ["悠月子"],
+      "consultant": []
     }
   },
   {
@@ -121,7 +125,8 @@
       "webRip": [],
       "bdRip": ["VCB-Studio"],
       "poster": ["一一丨一"],
-      "tcTranslator": ["SashiharaRino"]
+      "tcTranslator": ["SashiharaRino"],
+      "consultant": []
     }
   },
   {
@@ -146,7 +151,8 @@
       "webRip": [],
       "bdRip": ["MIR"],
       "poster": ["一一丨一"],
-      "tcTranslator": ["貓蟲"]
+      "tcTranslator": ["貓蟲"],
+      "consultant": []
     }
   },
   {
@@ -175,7 +181,288 @@
       "webRip": [],
       "bdRip": ["MIR"],
       "poster": ["緒実"],
-      "tcTranslator": ["SashiharaRino"]
+      "tcTranslator": ["SashiharaRino"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["满溢的水果挞"],
+    "tcTitle": [],
+    "jpTitle": ["おちこぼれフルーツタルト"],
+    "officialSite": "http://ochifuru-anime.com/onair.html",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/OC.png"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["丸丸", "致翔永恒"],
+      "translationChecker": ["saramanda"],
+      "timer": ["錯黨"],
+      "effect": [],
+      "script": ["Poi"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["momo"],
+      "poster": ["Pitove"],
+      "tcTranslator": ["錯黨"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["One Room Third Season"],
+    "tcTitle": ["One Room Third Season"],
+    "jpTitle": ["One Room サードシーズン"],
+    "officialSite": "https://oneroom-anime.com/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/OR.jpg"
+    ],
+    "status": "finished",
+    "type": "shortAnime",
+    "subType": ["tc", "sc"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["红黑剑士盖亚"],
+      "translationChecker": [],
+      "timer": ["錯黨"],
+      "effect": ["錯黨"],
+      "script": ["錯黨"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["LoliHouse"],
+      "poster": ["Pitove"],
+      "tcTranslator": ["SashiharaRino"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["在魔王城说晚安"],
+    "tcTitle": [],
+    "jpTitle": ["魔王城でおやすみ"],
+    "officialSite": "https://maoujo-anime.com/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/魔王城海报.jpg"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["谙驿", "Saki"],
+      "translationChecker": [],
+      "timer": ["錯黨"],
+      "effect": [],
+      "script": ["Poi"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["momo"],
+      "poster": ["緒実"],
+      "tcTranslator": ["錯黨"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["池袋西口公园"],
+    "tcTitle": [],
+    "jpTitle": ["池袋ウエストゲートパーク"],
+    "officialSite": "https://iwgp-anime.com/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/小风一条街.png"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["四葉氷鋒", "番茄鸡", "小盒子"],
+      "translationChecker": ["小风yusa"],
+      "timer": ["MIR"],
+      "effect": [],
+      "script": ["MIR"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["momo"],
+      "poster": ["一一丨一"],
+      "tcTranslator": ["雲棋"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["熊熊勇闯异世界"],
+    "tcTitle": [],
+    "jpTitle": ["くまクマ熊ベアー"],
+    "officialSite": "https://kumakumakumabear.com/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/熊四poster.jpg"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["Carl", "橘菊", "GC"],
+      "translationChecker": ["御邪魔虫"],
+      "timer": ["可乐"],
+      "effect": ["王子"],
+      "script": ["錯黨"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["LoliHouse"],
+      "poster": ["緒実"],
+      "tcTranslator": ["錯黨"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["这是你与我的最后战场，或是开创世界的圣战"],
+    "tcTitle": [],
+    "jpTitle": ["キミと僕の最後の戦場、あるいは世界が始まる聖戦"],
+    "officialSite": "https://kimisentv.com/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/圣战.png"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["红黑剑士盖亚", "醋拌面", "空氣人"],
+      "translationChecker": ["夕張メロン"],
+      "timer": ["MIR"],
+      "effect": ["王子"],
+      "script": ["MIR"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["LoliHouse"],
+      "poster": ["Pitove"],
+      "tcTranslator": ["貓蟲"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["ROAD to BERLIN"],
+    "tcTitle": ["ROAD to BERLIN"],
+    "jpTitle": ["第501統合戦闘航空団 ストライクウィッチーズ"],
+    "officialSite": "http://w-witch.jp/strike_witches-rtb/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/501.png"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["Saki", "谙驿"],
+      "translationChecker": [],
+      "timer": ["Poi"],
+      "effect": ["Poi"],
+      "script": ["Poi"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["momo"],
+      "poster": ["Pitove"],
+      "tcTranslator": ["貓蟲"],
+      "consultant": ["601"]
+    }
+  },
+  {
+    "scTitle": ["Assault Lily BOUQUET"],
+    "tcTitle": ["Assault Lily BOUQUET"],
+    "jpTitle": ["Assault Lily BOUQUET"],
+    "officialSite": "https://anime.assaultlily-pj.com/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/AssaultLilyBOUQUET新海报.png"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc", "jp"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["saramanda", "雨后飘雪", "槐安"],
+      "translationChecker": ["Ronny"],
+      "timer": ["Ronny"],
+      "effect": ["kasumi"],
+      "script": ["MIR"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["LoliHouse"],
+      "poster": ["Aekxwpo"],
+      "tcTranslator": ["SashiharaRino"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["我立于百万生命之上"],
+    "tcTitle": [],
+    "jpTitle": ["１００万の命の上に俺は立っている"],
+    "officialSite": "http://1000000-lives.com/onair/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/我立于百万生命之上海报.png"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["流石", "内鬼", "dejavu"],
+      "translationChecker": ["saramanda"],
+      "timer": ["錯黨"],
+      "effect": [""],
+      "script": ["Poi"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["momo"],
+      "poster": ["Aekxwpo"],
+      "tcTranslator": ["錯黨"],
+      "consultant": []
+    }
+  },
+  {
+    "scTitle": ["D4DJ First Mix"],
+    "tcTitle": ["D4DJ First Mix"],
+    "jpTitle": ["D4DJ First Mix"],
+    "officialSite": "https://anime.d4dj-pj.com/",
+    "year": "2020",
+    "month": "10",
+    "posterUrl": [
+      "images/2020-10/D4DJFirstMix海报.png"
+    ],
+    "status": "finished",
+    "type": "anime",
+    "subType": ["tc", "sc", "jp"],
+    "videoType": "WEB",
+    "staff": {
+      "translator": ["名別", "小单车"],
+      "translationChecker": ["Ronny"],
+      "timer": ["錯黨"],
+      "effect": [""],
+      "script": ["錯黨"],
+      "production": [],
+      "webRip": [],
+      "bdRip": ["momo"],
+      "poster": ["冬马党"],
+      "tcTranslator": ["SashiharaRino"],
+      "consultant": []
     }
   }
 ]
